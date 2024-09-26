@@ -1,0 +1,9 @@
+main.content p{
+    grid-area: content;
+    display: flex;
+    flex-direction: column; /* Organiza os retângulos um abaixo do outro */
+    justify-content: center; /* Centraliza verticalmente */
+    align-items: center; /* Centraliza horizontalmente */
+    gap: 20px; /* Espaçamento entre os retângulos */
+}
+

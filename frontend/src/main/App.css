@@ -48,6 +48,7 @@ main.content {
     grid-area: content;
 }
 
+
 footer.footer {
     grid-area: footer;
 }
