@@ -1,7 +1,5 @@
-// ListarButton.js
-import React, { Component } from 'react'
-
-import Main from "../template/Main"
+import React, { Component } from 'react';
+import Main from "../template/Main";
 import './Acoes_users.css';
 
 const headerProps = {
@@ -10,14 +8,16 @@ const headerProps = {
     subtitle: 'Consulte todos os usuários cadastrados'
 }
 
-export default class Listar extends Component {
-    render () {
+export default class Alterar extends Component {
+    render() {
         return (
             <div>
-                <Main {...headerProps}>
-                    Segue abaixo a lista de todos os nossos usuários atuais: 
+                <Main {...headerProps} className="acoes-header">
+                    <div className="content-box">
+                        <p>Aqui você pode modificar as informações de um usuário existente.</p>
+                    </div>
                 </Main>
             </div>
-        )
+        );
     }
 }
