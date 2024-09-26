@@ -1,14 +1,24 @@
-// IncluirButton.js
-import React from "react"
-import { Link } from "react-router-dom"
-import './Options.css'
+// ListarButton.js
+import React, { Component } from 'react'
 
-function IncluirButton() {
-  return (
-    <Link to="/incluir" className="incluir-button">
-      Incluir
-    </Link>
-  );
+import Main from "../template/Main"
+import './Acoes_users.css';
+
+
+const headerProps = {
+    icon: 'users/incluir',
+    title: 'Incluir usuário',
+    subtitle: 'Adicione um usuário ao nosso sistema'
 }
 
-export default IncluirButton;
+export default class Incluir extends Component {
+    render () {
+        return (
+            <div>
+                <Main {...headerProps}>
+                    ...
+                </Main>
+            </div>
+        )
+    }
+}

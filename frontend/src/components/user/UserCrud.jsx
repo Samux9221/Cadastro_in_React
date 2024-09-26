@@ -1,14 +1,8 @@
 import React, { Component } from 'react'
 
 import Main from "../template/Main"
-import Alterar from './Alterar'
-import Excluir from './Excluir'
-import Incluir from './Incluir'
-import Listar from './Listar'
-import Opcoes from './Opcoes'
+import Opcoes from './Options'
 
-
-//criar os botões e importar aqui, colocando as tags embaixo da tag main que estásendo retornada ali em baixo
 
 const headerProps = {
     icon: 'users',
@@ -21,7 +15,7 @@ export default class UserCrud extends Component {
         return (
             <div>
                 <Main {...headerProps}>
-                    Cadastro de usuários
+                    Qual ação deseja executar?
                 </Main>
                 <Opcoes />
             </div>

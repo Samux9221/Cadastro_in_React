@@ -1,14 +1,23 @@
-// AlterarButton.js
-import React from "react"
-import { Link } from "react-router-dom"
-import './Options.css'
+import React, { Component } from 'react';
+import Main from "../template/Main";
+import './Acoes_users.css';
 
-function AlterarButton() {
-  return (
-    <Link to="/alterar" className="alterar-button">
-      Alterar
-    </Link>
-  );
+const headerProps = {
+    icon: 'users/alterar',
+    title: 'Alterar usuário',
+    subtitle: 'Modifique alguma informação de um usuário'
 }
 
-export default AlterarButton;
+export default class Alterar extends Component {
+    render() {
+        return (
+            <div>
+                <Main {...headerProps} className="acoes-header">
+                    <div className="content-box">
+                        <p>Aqui você pode modificar as informações de um usuário existente.</p>
+                    </div>
+                </Main>
+            </div>
+        );
+    }
+}
