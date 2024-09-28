@@ -9,7 +9,6 @@ import Incluir from '../components/user/Incluir'
 import Listar from '../components/user/Listar'
 import Errado from '../components/user/Errado'
 
-
 export default props =>
         <Routes>
             <Route path="/" element={<Home />}/>
