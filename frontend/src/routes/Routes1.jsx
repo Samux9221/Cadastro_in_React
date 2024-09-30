@@ -13,9 +13,9 @@ export default props =>
         <Routes>
             <Route path="/" element={<Home />}/>
             <Route path="/users" element={<UserCrud />}/>
-            <Route path="/alterar" element={<Alterar />}/>
-            <Route path="/excluir" element={<Excluir />}/>
-            <Route path="/incluir" element={<Incluir />}/>
-            <Route path="/listar" element={<Listar />}/>
+            <Route path="/users/alterar" element={<Alterar />}/>
+            <Route path="/users/excluir" element={<Excluir />}/>
+            <Route path="/users/incluir" element={<Incluir />}/>
+            <Route path="/users/listar" element={<Listar />}/>
             <Route path="*" element={<Errado />}/>
         </Routes>

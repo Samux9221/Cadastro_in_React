@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
+import axios from 'axios'
 
 import Main from "../template/Main"
-import Opcoes from './Options'
 
 
 const headerProps = {
@@ -15,9 +15,8 @@ export default class UserCrud extends Component {
         return (
             <div>
                 <Main {...headerProps}>
-                    Qual ação deseja executar?
+                    Escolha no menu qual ação deseja executar
                 </Main>
-                <Opcoes />
             </div>
         )
     }

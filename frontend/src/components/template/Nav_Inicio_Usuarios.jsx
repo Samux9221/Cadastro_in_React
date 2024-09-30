@@ -1,4 +1,5 @@
     import React, { useState } from 'react';
+    import { Link } from 'react-router-dom'
 
     export default function Menu(props) {
         const [controlarVisibilidade, setcontrolarVisibilidade] = useState(false);
@@ -9,34 +10,34 @@
     
         return (
             <aside>
-                <a href="#/">
-                    <i className="fa fa-home"></i> Início
-                </a>
+                <Link to="/" onClick={() => controlarVisibilidade && alterarEstado()}>
+                    <i className="fa fa-home"></i> Início   
+                </Link>
                 <li style={{ color: 'white', textDecoration: 'none', listStyleType: 'none' }}>
-                    <a href="#/" onClick={alterarEstado} style={{ cursor: 'pointer' }}>
+                    <Link to="/users" onClick={alterarEstado} style={{ cursor: 'pointer' }}>
                         <i className="fa fa-users"></i> Usuários
-                    </a>
+                    </Link>
                     {controlarVisibilidade && (
                         <ul>
                             <li style={{ color: 'white', textDecoration: 'none', listStyleType: 'none' }}>
-                                <a href="#/incluir">
+                                <Link to="/users/incluir">
                                     <i className="fa fa-plus"></i> Incluir
-                                </a>
+                                </Link>
                             </li>
                             <li style={{ color: 'white', textDecoration: 'none', listStyleType: 'none' }}>
-                                <a href="#/alterar">
+                                <Link to="/users/alterar">
                                     <i className="fa fa-plus"></i> Alterar
-                                </a>
+                                </Link>
                             </li>
                             <li style={{ color: 'white', textDecoration: 'none', listStyleType: 'none' }}>
-                                <a href="#/excluir">
+                                <Link to="/users/excluir">
                                     <i className="fa fa-plus"></i> Excluir
-                                </a>
+                                </Link>
                             </li>
                             <li style={{ color: 'white', textDecoration: 'none', listStyleType: 'none' }}>
-                                <a href="#/listar">
+                                <Link to="/users/listar">
                                     <i className="fa fa-plus"></i> Listar
-                                </a>
+                                </Link>
                             </li>
                         </ul>
                     )}
