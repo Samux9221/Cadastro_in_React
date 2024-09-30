@@ -12,6 +12,7 @@ import Errado from '../components/user/Errado'
 export default props =>
         <Routes>
             <Route path="/" element={<Home />}/>
+            <Route path="/Cadastro_in_React" element={<Home />}/>
             <Route path="/users" element={<UserCrud />}/>
             <Route path="/users/alterar" element={<Alterar />}/>
             <Route path="/users/excluir" element={<Excluir />}/>
