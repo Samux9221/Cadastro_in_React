@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
-import axios from 'axios'
-
+import React, { useState } from 'react';
+import axios from 'axios';
 import Main from "../template/Main";
 import './Acoes_users.css';
 
@@ -8,98 +7,121 @@ const headerProps = {
     icon: 'users/incluir',
     title: 'Incluir usuário',
     subtitle: 'Adicione um usuário ao nosso sistema'
-}
+};
 
-const baseUrl = 'http://localhost:3001/users    '
+const baseUrl = 'http://localhost:3001/users';
 
 const initialState = {
-    user: {name: '', email: ''},
+    user: { name: '', email: '' },
     list: []
-}
+};
 
-export default class Alterar extends Component {
-    state = { ...initialState }
+const Alterar = () => {
+    const [user, setUser] = useState(initialState.user);
+    const [list, setList] = useState(initialState.list);
+    const [mensagem, setMensagem] = useState("");
 
-    clear() {
-         this.setState({ user: initialState.user })
-    }
+    const clear = () => {
+        setUser(initialState.user);
+    };
 
-    save() {
-        const user = this.state.user
-        const method = user.id ? 'put' : 'post'
-        const url = user.id ? `${baseUrl}/${user.id}` : baseUrl
+    const save = () => {
+        const method = user.id ? 'put' : 'post';
+        const url = user.id ? `${baseUrl}/${user.id}` : baseUrl;
+
         axios[method](url, user)
             .then(resp => {
-                const list = this.getUpdatedList(resp.data) 
-                this.setState( {user: initialState.user, list} )
-            })
-    }
+                const updatedList = getUpdatedList(resp.data);
+                setUser(initialState.user);
+                setList(updatedList);
+            });
+    };
 
-    getUpdatedList(user){
-        const list = this.state.list.filter(usuario => usuario.id !== user.id)
-        list.unshift(user)
-        return list
-    }
+    const getUpdatedList = (user) => {
+        const updatedList = list.filter(usuario => usuario.id !== user.id);
+        updatedList.unshift(user);
+        return updatedList;
+    };
 
-    atualizarCampo(event){
-        const user = { ...this.state.user } //antes de modificar, vamos clonar o usuário e armazenar em user (questão de segurança)
-        user[event.target.name] = event.target.value
-        this.setState({ user })
-    }
+    const atualizarCampo = (event) => {
+        const { name, value } = event.target;
+        setUser({ ...user, [name]: value });
+    };
 
-    renderForm() {
-        return (
-            <div className="form">
-                <div className="row">
-                    <div className="col-12 col-md-6">
-                        <div className="form-group">
-                            <label>Nome</label>
-                            <input type="text" className="form-control" 
-                                name="name"
-                                value={this.state.user.name}
-                                onChange={e => this.atualizarCampo(e)}
-                                placeholder="Digite o nome..."/>
-                        </div>
-                    </div>
-                    <div className="col-12 col-md-6">
-                        <div className="form-group">
-                            <label>E-mail</label>
-                            <input type="text" className="form-control" 
-                                name="email"
-                                value={this.state.user.email}
-                                onChange={e => this.atualizarCampo(e)}
-                                placeholder="Digite o e-mail..."/>
-                        </div>
+    const validacao = (e) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const email = e.target.value;
+
+        if (emailRegex.test(email)) {
+            setMensagem("Email válido");
+        } else {
+            setMensagem("Email não é válido");
+        }
+    };
+
+    const renderForm = () => (
+        <div className="form">
+            <div className="row">
+                <div className="col-12 col-md-6">
+                    <div className="form-group">
+                        <label>Nome</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            name="name"
+                            value={user.name}
+                            onChange={atualizarCampo}
+                            placeholder="Digite o nome..."
+                        />
                     </div>
                 </div>
-
-                <hr />
-                <div className="row">
-                    <div className="col-12 d-flex justify-content-end">
-                        <button className="btn btn-ptimary"
-                            onClick={e => this.save(e)}>
-                            Salvar
-                        </button>
-
-                        <button className="btn btn-secondary ml-2"
-                            onClick={e => this.clear(e)}>
-                            Cancelar
-                        </button>
+                <div className="col-12 col-md-6">
+                    <div className="form-group">
+                        <label>E-mail</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            name="email"
+                            value={user.email}
+                            onChange={(e) => {
+                                atualizarCampo(e);
+                                validacao(e);
+                            }}
+                            placeholder="Digite o e-mail..."
+                        />
                     </div>
                 </div>
             </div>
-        )
-    }
 
-    render () {
-        return (
-            <div>
-                <Main {...headerProps}>
-                    {this.renderForm()}
-                </Main>
+            <hr />
+            <div className="row">
+                <div className="col-12 d-flex justify-content-end">
+                    <button
+                        className="btn btn-primary"
+                        onClick={save}
+                    >
+                        Salvar
+                    </button>
+
+                    <button
+                        className="btn btn-secondary ml-2"
+                        onClick={clear}
+                    >
+                        Cancelar
+                    </button>
+                    <p className='menssagem'>{mensagem}</p>
+                </div>
             </div>
-        )
-    }
-}
+        </div>
+    );
 
+    return (
+        <div>
+            <Main {...headerProps}>
+                {renderForm()}
+            </Main>
+        </div>
+    );
+};
 
+export default Alterar;
