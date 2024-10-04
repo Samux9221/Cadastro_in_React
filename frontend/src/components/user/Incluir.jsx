@@ -9,14 +9,14 @@ const headerProps = {
     subtitle: 'Adicione um usuário ao nosso sistema'
 };
 
-const baseUrl = 'http://localhost:3001/users';
+const baseUrl = 'http://localhost:3000/users';
 
 const initialState = {
     user: { name: '', email: '' },
     list: []
 };
 
-const Alterar = () => {
+const Incluir = () => {
     const [user, setUser] = useState(initialState.user);
     const [list, setList] = useState(initialState.list);
     const [mensagem, setMensagem] = useState("");
@@ -124,4 +124,4 @@ const Alterar = () => {
     );
 };
 
-export default Alterar;
+export default Incluir;
