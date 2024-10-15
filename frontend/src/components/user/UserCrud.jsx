@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Main from "../template/Main";
+import { Link } from 'react-router-dom'; 
 import './Acoes_users.css';
 
 const headerProps = {
@@ -21,9 +22,29 @@ export default class UserCrud extends Component {
             });
     }
 
+    handleEdit(user) {
+        console.log("Editar usuário:", user);
+    }
+
+    handleDelete(user) {
+        console.log("Excluir usuário:", user);
+    }
+
     renderUsers() {
         return this.state.users.map(user => (
-            <li key={user.id}>{user.name} - {user.email}</li>
+            <aside key={user.id}>  {/* Colocando a key corretamente no elemento pai */}
+                <li className="user-list-item">
+                    <span className="user-info">{user.name} - {user.email}</span>
+                    <div className="user-actions">
+                        <Link to="/users/alterar">
+                            <i className="fas fa-edit"></i>
+                        </Link>
+                        <Link to="/users/excluir" className="delete-btn">
+                            <i className="fas fa-trash-alt"></i>
+                        </Link>
+                    </div>
+                </li>
+            </aside>
         ));
     }
 

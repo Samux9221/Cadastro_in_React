@@ -1,4 +1,7 @@
 /* Estilização do Header - Específico para a classe .acoes-header */
+
+@import '@fortawesome/fontawesome-free/css/all.min.css';
+
 .acoes-header {
     background-color: #F4F7FA;
     padding: 25px 50px;
@@ -72,9 +75,7 @@
 }
 
 .user-actions .delete-btn {
-    background-color: #dc3545;
-}
-
-.user-actions .delete-btn:hover {
-    background-color: #c82333;
+    background-color: #f1f1f1;
+    color: rgb(169, 26, 26);
+    margin-left: 10px;
 }
