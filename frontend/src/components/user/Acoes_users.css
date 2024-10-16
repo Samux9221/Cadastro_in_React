@@ -79,3 +79,24 @@
     color: rgb(169, 26, 26);
     margin-left: 10px;
 }
+
+.add-button-container {
+    display: flex;
+    justify-content: center; /* Centraliza o botão horizontalmente */
+    margin: 20px 0; /* Espaçamento superior e inferior */
+}
+
+.add-button {
+    text-decoration: none;
+    background-color: #0b5d8c; /* Cor de fundo */
+    color: white; /* Cor do texto */
+    padding: 10px 20px; /* Espaçamento interno */
+    border: none; /* Remove a borda padrão */
+    border-radius: 5px; /* Borda arredondada */
+    cursor: pointer; /* Mostra o cursor de mão */
+    transition: background-color 0.3s ease; /* Animação suave ao passar o mouse */
+}
+
+.add-button:hover {
+    background-color: #34b6ba; /* Cor ao passar o mouse */
+}

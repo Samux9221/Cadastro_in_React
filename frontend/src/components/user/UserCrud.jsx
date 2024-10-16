@@ -15,6 +15,12 @@ export default class UserCrud extends Component {
         users: []
     };
 
+    /*montandoLista(){
+        axios(baseUrl).then(resp => {
+            this.setState({ list: resp.data})
+        })
+    }
+*/
     componentDidMount() {
         axios.get('http://localhost:3000/users')
             .then(response => {
@@ -48,10 +54,30 @@ export default class UserCrud extends Component {
         ));
     }
 
+    buttomAdd(){
+        return <div className="add-button-container">
+                <Link className="add-button" to='/users/incluir'>
+                    <i className='fas fa-plus'></i> Adicionar Usuário
+                </Link>
+            </div>
+    
+    }
+
+    load(user){
+        this.setState({ user })
+    }
+
+    remove(user){
+        axios.delete()
+    }
+
     render() {
         return (
             <div>
                 <Main {...headerProps}>
+                    <ul>
+                        {this.buttomAdd()}
+                    </ul>
                     <ul className="user-list">
                         {this.renderUsers()}
                     </ul>
