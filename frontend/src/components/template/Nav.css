@@ -2,18 +2,28 @@ aside.menu-area {
     background-color: var(--bg-dark);
     box-shadow: 
         2px 0 10px 0 rgba(0, 0, 0, 0.12),
-        2px 0 15px 0 rgba(0, 0, 0, 0.09),
+        2px 0 15px 0 rgba(0, 0, 0, 0.09);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh; /* Altura total da tela */
+    width: 225px; /* Ajuste conforme o tamanho da sua sidebar */
+    z-index: 1000; /* Para ficar acima do conteúdo */
+    display: flex;
+    flex-direction: column; /* Organiza os elementos verticalmente */
 }
 
 aside.menu a {
     display: block;
     text-decoration: none;
     color: #FFF;
-    font-weight: 300; /*tamanho da letra*/
-    padding: 15px; /*espaçamento*/
+    font-weight: 300;
+    padding: 15px; /* Espaçamento interno para os links */
+    margin: 5px 0; /* Espaçamento entre os links */
+    background-color: var(--bg-dark); /* Cor de fundo dos botões */
+    border-radius: 5px; /* Bordas arredondadas */
 }
 
-aside.menu a:hover { /*funções para quando o mause passa por cima*/
+aside.menu a:hover {
     background: linear-gradient(135deg, #07a7e3 0%, #32dac3 100%);
 }
-
