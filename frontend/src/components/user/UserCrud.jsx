@@ -12,63 +12,59 @@ const headerProps = {
 
 export default class UserCrud extends Component {
     state = {
-        users: []
+        users: [] // Estado para armazenar os usuários
     };
 
-    /*montandoLista(){
-        axios(baseUrl).then(resp => {
-            this.setState({ list: resp.data})
-        })
-    }
-*/
+    // Método chamado após o componente ser montado
     componentDidMount() {
+        // Faz uma requisição GET para buscar a lista de usuários
         axios.get('http://localhost:3000/users')
             .then(response => {
-                this.setState({ users: response.data });
-            });
+                this.setState({ users: response.data }); // Atualiza o estado com os usuários
+            })
+            .catch(error => console.error('Erro ao buscar usuários:', error)); // Trata erros
     }
 
+    // Método para lidar com a edição de um usuário
     handleEdit(user) {
-        console.log("Editar usuário:", user);
+        // Redireciona para a página de edição do usuário, passando o ID como parâmetro na URL
+        this.props.history.push(`/users/alterar/${user.id}`);
     }
 
+    // Método para lidar com a exclusão de um usuário
     handleDelete(user) {
         console.log("Excluir usuário:", user);
+        // Aqui você poderia implementar a lógica para excluir o usuário
     }
 
+    // Renderiza a lista de usuários
     renderUsers() {
         return this.state.users.map(user => (
-            <aside key={user.id}>  {/* Colocando a key corretamente no elemento pai */}
+            <aside key={user.id}>
                 <li className="user-list-item">
                     <span className="user-info">{user.name} - {user.email}</span>
                     <div className="user-actions">
-                        <Link to="/users/alterar">
+                        <button onClick={() => this.handleEdit(user)}>
                             <i className="fas fa-edit"></i>
-                        </Link>
-                        <Link to="/users/excluir" className="delete-btn">
+                        </button>
+                        <button onClick={() => this.handleDelete(user)} className="delete-btn">
                             <i className="fas fa-trash-alt"></i>
-                        </Link>
+                        </button>
                     </div>
                 </li>
             </aside>
         ));
     }
 
-    buttomAdd(){
-        return <div className="add-button-container">
+    // Renderiza o botão para adicionar um novo usuário
+    buttomAdd() {
+        return (
+            <div className="add-button-container">
                 <Link className="add-button" to='/users/incluir'>
                     <i className='fas fa-plus'></i> Adicionar Usuário
                 </Link>
             </div>
-    
-    }
-
-    load(user){
-        this.setState({ user })
-    }
-
-    remove(user){
-        axios.delete()
+        );
     }
 
     render() {
