@@ -101,6 +101,21 @@
     background-color: #34b6ba; /* Cor ao passar o mouse */
 }
 
+.add-save-cancel {
+    text-decoration: none;
+    background-color: #0b5d8c; /* Cor de fundo */
+    color: white; /* Cor do texto */
+    padding: 4px 8px; /* Espaçamento interno */
+    border: none; /* Remove a borda padrão */
+    border-radius: 5px; /* Borda arredondada */
+    cursor: pointer; /* Mostra o cursor de mão */
+    transition: background-color 0.3s ease; /* Animação suave ao passar o mouse */
+}
+
+.add-save-cancel:hover {
+    background-color: #34b6ba; /* Cor ao passar o mouse */
+}
+
 /* CSS para overlay do modal */
 .ReactModal__Overlay {
     position: fixed;
