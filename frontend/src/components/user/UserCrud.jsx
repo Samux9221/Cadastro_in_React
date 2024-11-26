@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Main from "../template/Main";
 import { Link } from 'react-router-dom';
-import Modal from "react-modal";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 import './Acoes_users.css';
+
+const Alerta = withReactContent(Swal);
 
 const headerProps = {
     icon: 'users',
@@ -11,16 +14,10 @@ const headerProps = {
     subtitle: 'Cadastro de usuários: Incluir, Listar, Alterar e Excluir!'
 };
 
-Modal.setAppElement('#root'); // Configuração de acessibilidade
-
 export default class UserCrud extends Component {
     state = {
-        users: [],
-        isEditModalOpen: false,
-        isDeleteModalOpen: false,
-        selectedUser: null
+        users: []
     };
-    
 
     componentDidMount() {
         axios.get('http://localhost:3000/users')
@@ -29,12 +26,27 @@ export default class UserCrud extends Component {
             });
     }
 
-    // Funções para abrir e fechar modais
-    openEditModal = (user) => this.setState({ isEditModalOpen: true, selectedUser: user });
-    closeEditModal = () => this.setState({ isEditModalOpen: false, selectedUser: null });
+    // Função de exibição do modal para edição
+    mostrarModalEdit = () => {
+        Alerta.fire({
+            title: 'Editar Usuário',
+            html: 'Aqui você pode editar o usuário.',
+            icon: 'info',
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar',
+        });
+    };
 
-    openDeleteModal = (user) => this.setState({ isDeleteModalOpen: true, selectedUser: user });
-    closeDeleteModal = () => this.setState({ isDeleteModalOpen: false, selectedUser: null });
+    // Função de exibição do modal para exclusão
+    mostrarModalExcluir = () => {
+        Alerta.fire({
+            title: 'Excluir Usuário',
+            html: 'Aqui você vai excluir um usuário.',
+            icon: 'warning',
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar',
+        });
+    };
 
     renderUsers() {
         return this.state.users.map(user => (
@@ -42,10 +54,10 @@ export default class UserCrud extends Component {
                 <li className="user-list-item">
                     <span className="user-info">{user.name} - {user.email}</span>
                     <div className="user-actions">
-                        <Link to="#" onClick={() => this.openEditModal(user)}>
+                        <Link to="#" onClick={this.mostrarModalEdit}>
                             <i className="fas fa-edit"></i>
                         </Link>
-                        <Link to="#" onClick={() => this.openDeleteModal(user)} className="delete-btn">
+                        <Link to="#" onClick={this.mostrarModalExcluir} className="delete-btn">
                             <i className="fas fa-trash-alt"></i>
                         </Link>
                     </div>
@@ -67,47 +79,6 @@ export default class UserCrud extends Component {
                         {this.renderUsers()}
                     </ul>
                 </Main>
-
-                {/* Modal de Edição */}
-                <Modal
-                    isOpen={this.state.isEditModalOpen}
-                    onRequestClose={this.closeEditModal}
-                    overlayClassName="ReactModal__Overlay"
-                    className="ReactModal__Content"
-                >
-                    <h2>Editar Usuário</h2>
-                    <form>
-                        <label>Nome:</label>
-                        <input type="text" placeholder="Nome" defaultValue={this.state.selectedUser?.name} />
-
-                        <label>Email:</label>
-                        <input type="email" placeholder="Email" defaultValue={this.state.selectedUser?.email} />
-
-                        <div style={{ marginTop: '20px', textAlign: 'right' }}>
-                            <button type="button" onClick={this.closeEditModal} className='add-save-cancel'>Cancelar</button>
-                            <button type="submit" style={{ marginLeft: '10px' }} className='add-save-cancel'>Salvar</button>
-                        </div>
-                    </form>
-                </Modal>
-
-                {/* Modal de Exclusão */}
-                <Modal
-                    isOpen={this.state.isDeleteModalOpen}
-                    onRequestClose={this.closeDeleteModal}
-                    overlayClassName="ReactModal__Overlay"
-                    className="ReactModal__Content"
-                >
-                    <h2>Excluir Usuário</h2>
-                    <p>Tem certeza de que deseja excluir o usuário <strong>{this.state.selectedUser?.name}</strong>?</p>
-                    <div style={{ textAlign: 'right' }}>
-                        <button onClick={this.closeDeleteModal} className='add-save-cancel'>Cancelar</button>
-                        <button onClick={() => {
-                            // Função de exclusão
-                            console.log("Excluindo usuário:", this.state.selectedUser);
-                            this.closeDeleteModal();
-                        }} className='add-save-cancel' style={{ marginLeft: '10px' }}>Excluir</button>
-                    </div>
-                </Modal>
             </div>
         );
     }
