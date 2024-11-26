@@ -20,6 +20,7 @@ export default class UserCrud extends Component {
         isDeleteModalOpen: false,
         selectedUser: null
     };
+    
 
     componentDidMount() {
         axios.get('http://localhost:3000/users')
