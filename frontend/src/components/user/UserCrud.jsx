@@ -27,14 +27,48 @@ export default class UserCrud extends Component {
     }
 
     // Função de exibição do modal para edição
-    mostrarModalEdit = () => {
+    mostrarModalEdit = (user) => {
+
+        this.setState({ selectedUser: user }); // passamos como argumento um objeto e o react agora sabe quem é o usuário selecionado
+
         Alerta.fire({
             title: 'Editar Usuário',
-            html: 'Aqui você pode editar o usuário.',
+            html: `
+                <input id="name" class="swal2-input" placeholder="Nome" value="${user.name}" />
+                <input id="email" class="swal2-input" placeholder="Email" value="${user.email}"/>
+            `,
             icon: 'info',
             confirmButtonText: 'Confirmar',
+            showCancelButton: true,
             cancelButtonText: 'Cancelar',
+        }).then(result => {
+
+            if(result.isConfirmed){
+                const nowName = document.getElementById('name').value; // pega os dados preenchidos no campo do HTML pelo seu id (name or email)
+                const nowEmail = document.getElementById('email').value;
+
+                this.editarUsuario(user.id, { name: nowName, email: nowEmail });
+            }
+
         });
+    };
+
+    editarUsuario = (id, usuarioAtualizado) => {
+
+        axios.put(`http://localhost:3000/users/${id}`, usuarioAtualizado)
+            .then(response => {
+
+                const usuariosAtualizados = this.state.users.map( user => 
+                    user.id === id ? response.data : user   
+                );
+
+                this.setState({ users: usuariosAtualizados });
+                Alerta.fire('Sucesso', 'Usuário atualizado com sucesso!', 'success');
+            })
+            .catch(error => {
+                Alerta.fire('Erro', 'Ocorreu um erro ao atualizar o usuário.', 'error');
+            });
+
     };
 
     // Função de exibição do modal para exclusão
@@ -49,12 +83,12 @@ export default class UserCrud extends Component {
     };
 
     renderUsers() {
-        return this.state.users.map(user => (
+        return this.state.users.map(user => (   
             <aside key={user.id}>
                 <li className="user-list-item">
                     <span className="user-info">{user.name} - {user.email}</span>
                     <div className="user-actions">
-                        <Link to="#" onClick={this.mostrarModalEdit}>
+                        <Link to="#" onClick={this.mostrarModalEdit(user)}>
                             <i className="fas fa-edit"></i>
                         </Link>
                         <Link to="#" onClick={this.mostrarModalExcluir} className="delete-btn">
