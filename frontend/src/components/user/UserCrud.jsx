@@ -72,14 +72,30 @@ export default class UserCrud extends Component {
     };
 
     // Função de exibição do modal para exclusão
-    mostrarModalExcluir = () => {
+    mostrarModalExcluir = (user1) => {
+
+        this.setState({ selectedUser: user1 });
+
         Alerta.fire({
-            title: 'Excluir Usuário',
-            html: 'Aqui você vai excluir um usuário.',
+            title: 'Confirmação',
+            html: `Você realmente deseja excluir o usuário <strong>${user1.name}</strong>?`,
             icon: 'warning',
             confirmButtonText: 'Confirmar',
             cancelButtonText: 'Cancelar',
-        });
+        })
+        .then((result) => {
+            if(result.isConfirmed){
+                axios.delete(`http://localhost:3000/users/${user1.id}`)
+                    .then(() => {
+                        const usuariosAtualizados = this.state.users.filter(user => user.id !== user1.id);
+                        this.setState({ users: usuariosAtualizados });
+                        Alerta.fire('Excluído!', 'O usuário foi removido com sucesso.', 'success');
+                    })
+                    .catch(() => {
+                        Alerta.fire('Erro', 'Não foi possível excluir o usuário.', 'error');
+                    });
+            }
+        })
     };
 
     renderUsers() {
@@ -91,7 +107,7 @@ export default class UserCrud extends Component {
                         <Link to="#" onClick={() => this.mostrarModalEdit(user)}>
                             <i className="fas fa-edit"></i>
                         </Link>
-                        <Link to="#" onClick={this.mostrarModalExcluir} className="delete-btn">
+                        <Link to="#" onClick={() => this.mostrarModalExcluir(user)} className="delete-btn">
                             <i className="fas fa-trash-alt"></i>
                         </Link>
                     </div>
