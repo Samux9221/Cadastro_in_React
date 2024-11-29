@@ -88,7 +88,7 @@ export default class UserCrud extends Component {
                 <li className="user-list-item">
                     <span className="user-info">{user.name} - {user.email}</span>
                     <div className="user-actions">
-                        <Link to="#" onClick={this.mostrarModalEdit(user)}>
+                        <Link to="#" onClick={() => this.mostrarModalEdit(user)}>
                             <i className="fas fa-edit"></i>
                         </Link>
                         <Link to="#" onClick={this.mostrarModalExcluir} className="delete-btn">

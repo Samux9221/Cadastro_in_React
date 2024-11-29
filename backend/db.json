@@ -1,14 +1,19 @@
 {
   "users": [
     {
-      "id": 1,
-      "name": "Arthur Oliveira",
-      "email": "aooliveira@cod3r.com.br"
+      "name": " Emanuel Belisário",
+      "email": "emanuel.varao@gmail.com",
+      "id": 1
     },
     {
       "name": "Samuel Fernandes Silva",
-      "email": "samuel7.silva@alunos.ifsuldeminas.edu.br",
+      "email": "samuel.silva@alunos.ifsuldeminas.edu.br",
       "id": 2
+    },
+    {
+      "name": "Enzo",
+      "email": "enzo@gmail.com",
+      "id": 3
     }
   ]
 }
